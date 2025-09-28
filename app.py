@@ -7,8 +7,11 @@ import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all domains
 
-@app.route("/send", methods=["POST"])
+@app.route("/send", methods=["POST", "OPTIONS"])
 def send_email():
+    if request.method == "OPTIONS":
+        return jsonify({"message": "Preflight OK"}), 200
+
     data = request.get_json()
 
     SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
@@ -43,3 +46,4 @@ def send_email():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
