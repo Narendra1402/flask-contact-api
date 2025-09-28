@@ -23,14 +23,13 @@ def send_email():
     message = Mail(
         from_email=EMAIL_SENDER,
         to_emails=EMAIL_SENDER,  # Receiving email (your own)
-        subject=f"Contact Form: {data.get('visit', 'No Subject')}",
+        subject=f"New Contact Form Submission from {data.get('fullname', 'Unknown')}",
         plain_text_content=f"""
         You received a contact form submission:
 
         Name: {data.get('fullname')}
         Email: {data.get('email')}
-        Visit Time: {data.get('meeting')}
-        Message: {data.get('notes')}
+        Message: {data.get('meeting')}
         """
     )
 
